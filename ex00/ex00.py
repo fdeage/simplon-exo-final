@@ -1,21 +1,14 @@
 import os
 
-MAX_ERROR_COUNT = 6
-ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+from print import print_ongoing_result, print_score
+from config import MAX_ERROR_COUNT, ALPHABET
 
-def print_ongoing_result(word, found_letters):
-    for c in word:
-        if c in found_letters:
-            print(c + ' ', end='')
-        else:
-            print("_ ", end='')
 
-    print("\n")
 
 def choose_word():
     word = input("Choose a word for the game: ").upper()
 
-    os.system('clear')
+    os.system("clear")
     return word
 
 
@@ -39,6 +32,7 @@ def get_input_letter(found_letters):
 def check_letter(word, choice):
     return choice in word
 
+
 def is_win(word, found_letters) -> bool:
     for c in word:
         if c not in found_letters:
@@ -54,13 +48,15 @@ def hangman():
     error_count = 0
 
     while True:
-        print_ongoing_result(word, found_letters)
+        print_ongoing_result(word, found_letters, error_count)
+
         choice = get_input_letter(found_letters)
 
         if check_letter(word, choice) == True:
             found_letters.append(choice)
         else:
             error_count += 1
+
 
         if error_count >= MAX_ERROR_COUNT:
             print("game over. The word was ", word)
@@ -70,13 +66,11 @@ def hangman():
             print("YOU WIN!!")
             break
 
-
     return None
 
 
 if __name__ == "__main__":
     hangman()
-
 
     # is_game_over = False
     # while is_game_over == False:
