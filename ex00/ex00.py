@@ -1,4 +1,5 @@
 MAX_ERROR_COUNT = 6
+ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 def print_ongoing_result(word, choice):
     print("tutu")
@@ -6,8 +7,22 @@ def print_ongoing_result(word, choice):
 def choose_word():
     return "pendu"
 
-def get_input_letter():
-    return "t"
+def get_input_letter(found_letters):
+    while True:
+        chosen_letter = input("Give me a letter: ").upper()
+        if len(chosen_letter) > 1:
+            print("Too long you idiot")
+
+        elif chosen_letter not in ALPHABET:
+            print("not a letter you moron")
+
+        elif chosen_letter in found_letters
+            print("you already gave me that you imbecile")
+
+        else:
+            break
+
+    return chosen_letter
 
 
 def check_letter(word, choice):
