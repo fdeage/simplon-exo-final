@@ -1,5 +1,9 @@
+import getpass
+
 # demande un mot a deviner 
-def ask_word (): return input("taper un mot : " )
+# def ask_word (): return input("taper un mot : " )
+def ask_word (): return getpass.getpass("taper un mot : " )
+
 
 # check existance du mot 
 def not_valid_word (secret,dico): return True if secret not in dico else False
@@ -28,26 +32,27 @@ def get_valid_letter ():
 def get_life(word) : return min(3,len(word))
     
 # check lettre is in word
-def letter_in_word (secret,letter): return True if letter in secret else False 
+def letter_in_word (word,letter): return True if letter in word else False 
 
 # enleve les lettre trouvé 
 def maj (to_find_letter,letter): 
-    cible=to_find_letter.index(letter)
-    del(to_find_letter[cible])
-    return to_find_letter
+    
+    try :
+        while True : 
+            cible=to_find_letter.index(letter)
+            del(to_find_letter[cible])
+    except : 
+        return to_find_letter
 
 def show_progression (word,to_find_letter):
     view = ""
-    for letter in word : 
-        if letter not in to_find_letter : 
-            view+=letter
-        
-        else : 
+    for l in word :
+        if l in to_find_letter : 
             view+="_"
+        else : 
+            view+=l
 
     print (view)
-    
-
 
 #  main  : 
 def main (verif=False):
@@ -91,10 +96,10 @@ def main (verif=False):
 
     
     if life==0 :
-        print("you loose")
+        print("you loose , that was ",word)
 
     else : 
-        print("you win ")
+        print("you win")
         
     return 0
     
