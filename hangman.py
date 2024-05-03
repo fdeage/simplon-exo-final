@@ -58,12 +58,12 @@ def game(word):
         guess = guess.lower()
         if guess in process_word:
             correct_guess(og_word, process_word, guess)
-        elif "_" not in display:
-            print("You win!")
-            break
         else:
             wrong_guess(guess, attempts)
             attempts += 1
+        if "_" not in display:
+            print("You win!")
+            break
 
     if attempts == 8:
         print("You lose! The word was: ", word)
