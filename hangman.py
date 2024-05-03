@@ -1,17 +1,17 @@
 import random
-from list_of_words import brit_words, french_words
-from guesses import correct_guess, wrong_guess
 import unicodedata
 
-display = []
+from list_of_words import brit_words, french_words
+from guesses import correct_guess, wrong_guess
 
+display = []
 
 def game(word):
     print("Welcome to Hangman!")
     print("Guess the word in less than 8 attempts")
 
     og_word = list(word)
-    process_word = word.lower()
+    process_word = word.lower() 
     process_word = (
         unicodedata.normalize("NFKD", process_word)
         .encode("ASCII", "ignore")
@@ -40,7 +40,6 @@ def game(word):
 
     if attempts == 8:
         print("You lose! The word was: ", word)
-
 
 if __name__ == "__main__":
     random_word = random.choice(french_words)
