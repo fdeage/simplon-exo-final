@@ -5,13 +5,18 @@ import unicodedata
 
 display = []
 
+
 def game(word):
     print("Welcome to Hangman!")
     print("Guess the word in less than 8 attempts")
 
     og_word = list(word)
     process_word = word.lower()
-    process_word = unicodedata.normalize('NFKD', process_word).encode('ASCII', 'ignore').decode('utf-8')
+    process_word = (
+        unicodedata.normalize("NFKD", process_word)
+        .encode("ASCII", "ignore")
+        .decode("utf-8")
+    )
     process_word = list(process_word)
 
     for i in range(len(word)):
