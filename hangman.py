@@ -1,7 +1,5 @@
 import random
 from list_of_words import brit_words, french_words
-import random
-from list_of_words import brit_words, french_words
 import unicodedata
 
 display = []
