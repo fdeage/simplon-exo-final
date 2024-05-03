@@ -7,7 +7,7 @@ display = []
 
 def game(word):
     print("Welcome to Hangman!")
-    print("Guess the word in less than 10 attempts")
+    print("Guess the word in less than 8 attempts")
 
     og_word = list(word)
     process_word = word.lower()
