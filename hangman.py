@@ -1,39 +1,9 @@
 import random
 from list_of_words import brit_words, french_words
+from guesses import correct_guess, wrong_guess
 import unicodedata
 
 display = []
-
-hangman_construct = [
-        "  ____", 
-        " |    |",
-        " |    O",
-        " |   /|\\",
-        " |   / \\",
-        " |",
-        " |",
-        "_|_"
-    ]
-
-def correct_guess(og_word, process_word, guess):
-    for i in range(len(process_word)):
-        if process_word[i] == guess:
-            display[i] = og_word[i]
-    print("Yes ! ", guess, "is in the word.")
-    print("\n")
-    print(display)
-
-def wrong_guess(guess, attempts):
-    print("Nope ! ", guess, "is not in the word.")
-    print("\n")
-    print(display)
-    print("\n")
-    print("Here's the gallows:")
-    hangman=[]
-    for x in range(attempts+1): 
-        hangman.insert(0,hangman_construct[::-1][x])
-    for x in hangman:
-        print(x)
 
 def game(word):
     print("Welcome to Hangman!")
@@ -55,9 +25,9 @@ def game(word):
         guess = input("Enter your guess: ")
         guess = guess.lower()
         if guess in process_word:
-            correct_guess(og_word, process_word, guess)
+            correct_guess(og_word, process_word, guess, display)
         else:
-            wrong_guess(guess, attempts)
+            wrong_guess(guess, attempts, display)
             attempts += 1
         if "_" not in display:
             print("You win!")
