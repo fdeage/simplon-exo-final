@@ -40,6 +40,13 @@ def get_input_letter(found_letters):
 def check_letter(word, choice):
     return choice in word
 
+def is_win(word, found_letters) -> bool:
+    for c in word:
+        if c not in found_letters:
+            return False
+
+    return True
+
 
 def hangman():
     word = choose_word()
@@ -56,9 +63,13 @@ def hangman():
         else:
             error_count += 1
 
-            if error_count >= MAX_ERROR_COUNT:
-                print("game over. The word was ", word)
-                break
+        if error_count >= MAX_ERROR_COUNT:
+            print("game over. The word was ", word)
+            break
+
+        elif is_win(word, found_letters):
+            print("YOU WIN!!")
+            break
 
 
     return None
