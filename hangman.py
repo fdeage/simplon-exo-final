@@ -1,56 +1,71 @@
 import random
 from list_of_words import brit_words, french_words
+import random
+from list_of_words import brit_words, french_words
+import unicodedata
 
-def hangman(word):
-    print("Welcome to Hangman!")
-    print("Guess the word in less than 10 attempts")
+display = []
 
-    word = word.lower()
-    word = list(word)
-
-    display = []
-    for i in range(len(word)):
-        display.append("_")
-    print(display)
-
-    hangman_construct = [
+hangman_construct = [
         "  ____", 
         " |    |",
         " |    O",
         " |   /|\\",
         " |   / \\",
         " |",
+        " |",
         "_|_"
     ]
 
+def correct_guess(og_word, process_word, guess):
+    for i in range(len(process_word)):
+        if process_word[i] == guess:
+            display[i] = og_word[i]
+    print("Yes ! ", guess, "is in the word.")
+    print("\n")
+    print(display)
+
+def wrong_guess(guess, attempts):
+    print("Nope ! ", guess, "is not in the word.")
+    print("\n")
+    print(display)
+    print("\n")
+    print("Here's the gallows:")
+    print("\n".join(hangman_construct[:attempts+1]))
+
+def game(word):
+    print("Welcome to Hangman!")
+    print("Guess the word in less than 10 attempts")
+
+    og_word = list(word)
+    process_word = word.lower()
+    process_word = unicodedata.normalize('NFKD', process_word).encode('ASCII', 'ignore').decode('utf-8')
+    process_word = list(process_word)
+
+    for i in range(len(word)):
+        display.append("_")
+    print(display)
+
     attempts = 0
-    while attempts < 10:
+
+    while attempts < 8:
         print("\n")
         guess = input("Enter your guess: ")
         guess = guess.lower()
-        if guess in word:
-            for i in range(len(word)):
-                if word[i] == guess:
-                    display[i] = guess
-            print("Yes ! ", guess, "is not in the word.")
-            print("\n")
-            print(display)
-        else:
-            print("Nope ! ", guess, "is not in the word.")
-            print("\n")
-            print(display)
-            print("\n")
-            print("Here's the gallows:")
-            print("\n".join(hangman_construct[:attempts + 1]))
-            attempts += 1
-        if "_" not in display:
+        if guess in process_word:
+            correct_guess(og_word, process_word, guess)
+        elif "_" not in display:
             print("You win!")
             break
-    if attempts == 10:
+        else:
+            wrong_guess(guess, attempts)
+            attempts += 1
+
+    if attempts == 8:
         print("You lose! The word was: ", word)
 
 
 if __name__ == "__main__":
-    random_word = random.choice(brit_words)
+    random_word = random.choice(french_words)
 
-    hangman(random_word)
+    game(random_word)
