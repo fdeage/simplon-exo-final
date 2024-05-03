@@ -31,7 +31,11 @@ def wrong_guess(guess, attempts):
     print(display)
     print("\n")
     print("Here's the gallows:")
-    print("\n".join(hangman_construct[:attempts+1]))
+    hangman=[]
+    for x in range(attempts+1): 
+        hangman.insert(0,hangman_construct[::-1][x])
+    for x in hangman:
+        print(x)
 
 def game(word):
     print("Welcome to Hangman!")
